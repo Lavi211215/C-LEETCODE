@@ -1,0 +1,44 @@
+class Solution {
+public:
+bool matches(char ch,char top)
+{
+    if((top=='{' && ch=='}')||(top == '(' && ch==')'  )  || (top == '[' && ch==']'  ) )
+            return top;
+        return false;
+    }
+    bool isValid(string e) {
+        stack<char> s;
+        for(int i=0;i<e.size();i++)
+        {
+            char ch=e[i];
+            if(ch=='(' ||  ch=='{' ||  ch=='[' )
+            {
+                s.push(ch);
+            }
+            //check if it is a closing bracket, match it with  
+            //the top of the stack and if matches pop the top 
+            //element from the stack
+            else
+            {
+                if(!s.empty())
+                {
+                    if(matches(ch, s.top()))
+                    {
+                        s.pop();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        if(s.empty())
+            return true;
+        return false;
+    }
+};
